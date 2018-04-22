@@ -1,0 +1,49 @@
+body {
+	margin:0;
+}
+
+#row1 {
+	background-color:#ffffff;
+	padding-top:1em;
+	color:white;
+	margin:none;
+	border-style:solid;
+	border-bottom:black;
+}
+
+
+#row2 {
+	float:left;
+/*	padding:10em;*/
+}
+
+#row2 .col-med-4 {
+	max-width:50%;
+}
+
+
+#row3 {
+	padding-top:5em;
+	display:inline-block;
+	background-color:#0b5e90;
+	color:white;
+}
+
+
+
+.col-md-1 {
+	text-align:center;
+	font-size:2em;
+	margin-left:0;
+	margin-right:0;
+	padding-bottom:.5em;
+}
+
+.col-md-4 {
+	text-align:left;
+	max-width:50%;
+	float:left;
+}
+
+
+
