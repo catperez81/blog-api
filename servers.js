@@ -12,12 +12,10 @@ const app = express();
 // log the http layer
 app.use(morgan('common'));
 
-// adding some blog posts to `BlogPosts` so there's something
-// to retrieve.
-item.create('blog title here', 'actual blog post gets written here');
+// adding some blog posts to `BlogPosts` so there's something to retrieve.
+BlogPost.create('blog title here', 'actual blog post gets written here');
 
-// when the root of this router is called with GET, return
-// all current Blog posts  
+// when the root of this router is called with GET, return all current Blog posts  
 app.get('/blog-posts', (req, res) => {
   res.json(BlogPosts.get());
 });
