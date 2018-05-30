@@ -1,14 +1,20 @@
 {
   "name": "blog-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "blog-api server project",
   "main": "index.js",
   "scripts": {
+    "start": "node your-script.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "cat perez",
   "license": "ISC",
   "dependencies": {
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "blog-api"
   }
 }

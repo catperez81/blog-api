@@ -19,12 +19,12 @@ Posts.create('blog title here', 'actual blog post gets written here');
 // when the root of this router is called with GET, return
 // all current Blog posts  
 app.get('/blog-posts', (req, res) => {
-  res.json(ShoppingList.get());
+  res.json(BlogPosts.get());
 });
 
 app.post('/blog-posts', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
-  const requiredFields = ['title', 'content'];
+  const requiredFields = ['title','content', 'author'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
