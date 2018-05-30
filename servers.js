@@ -68,10 +68,10 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
   res.status(204).end();
 });
 
-// when DELETE request comes in with an id in path, try to delete that item from ShoppingList.
+// when DELETE request comes in with an id in path, delete item from Blog Posts
 app.delete('/blog-posts/:id', (req, res) => {
   BlogPosts.delete(req.params.id);
-  console.log(`Deleted blog post \`${req.params.ID}\``);
+  console.log(`Deleted blog post \`${req.params.id}\``);
   res.status(204).end();
 });
 
