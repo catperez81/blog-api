@@ -14,7 +14,7 @@ app.use(morgan('common'));
 
 // adding some blog posts to `Posts` so there's something
 // to retrieve.
-Posts.create('blog title here', 'actual blog post gets written here');
+BlogPost.create('blog title here', 'actual blog post gets written here');
 
 // when the root of this router is called with GET, return
 // all current Blog posts  
