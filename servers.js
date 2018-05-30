@@ -14,8 +14,7 @@ app.use(morgan('common'));
 
 // adding some blog posts to `Posts` so there's something
 // to retrieve.
-Posts.create(
-  'boiled white rice');
+Posts.create('blog title here', 'actual blog post gets written here');
 
 // when the root of this router is called with GET, return
 // all current Blog posts  
@@ -25,7 +24,7 @@ app.get('/blog-posts', (req, res) => {
 
 app.post('/blog-posts', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
-  const requiredFields = ['name', 'budget'];
+  const requiredFields = ['title', 'content'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -35,7 +34,7 @@ app.post('/blog-posts', jsonParser, (req, res) => {
     }
   }
 
-  const item = BlogPosts.create(req.body.name, req.body.budget);
+  const item = BlogPosts.create(req.body.title, req.body.content);
   res.status(201).json(item);
 });
 
@@ -45,7 +44,7 @@ app.post('/blog-posts', jsonParser, (req, res) => {
 // of that, log error and send back status code 400. otherwise
 // call `ShoppingList.update` with updated item.
 app.put('/blog-posts/:id', jsonParser, (req, res) => {
-  const requiredFields = ['name', 'budget', 'id'];
+  const requiredFields = ['title', 'content', 'id'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -60,11 +59,11 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
     console.error(message);
     return res.status(400).send(message);
   }
-  console.log(`Updating shopping list item \`${req.params.id}\``);
-  ShoppingList.update({
+  console.log(`Updating blog post \`${req.params.id}\``);
+  BlogPosts.update({
     id: req.params.id,
-    name: req.body.name,
-    budget: req.body.budget
+    name: req.body.title,
+    content: req.body.content
   });
   res.status(204).end();
 });
@@ -73,7 +72,7 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
 // try to delete that item from ShoppingList.
 app.delete('/blog-posts/:id', (req, res) => {
   BlogPost.delete(req.params.id);
-  console.log(`Deleted shopping list item \`${req.params.ID}\``);
+  console.log(`Deleted blog post \`${req.params.ID}\``);
   res.status(204).end();
 });
 
@@ -123,7 +122,7 @@ app.put('/blog-posts/:id', jsonParser, (req, res) => {
 });
 
 app.delete('/blog-posts/:id', (req, res) => {
-  BlogPosts.delete(req.params.id);
+  BlogPost.delete(req.params.id);
   console.log(`Deleted blog post \`${req.params.ID}\``);
   res.status(204).end();
 });
