@@ -4,7 +4,7 @@ const router = express.Router();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const {ShoppingList, Recipes} = require('./models');
+const {BlogPost} = require('./models');
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -12,26 +12,18 @@ const app = express();
 // log the http layer
 app.use(morgan('common'));
 
-// we're going to add some items to ShoppingList
-// so there's some data to look at
-ShoppingList.create('beans', 2);
-ShoppingList.create('tomatoes', 3);
-ShoppingList.create('peppers', 4);
-
-// adding some recipes to `Recipes` so there's something
+// adding some blog posts to `Posts` so there's something
 // to retrieve.
-Recipes.create(
-  'boiled white rice', ['1 cup white rice', '2 cups water', 'pinch of salt']);
-Recipes.create(
-  'milkshake', ['2 tbsp cocoa', '2 cups vanilla ice cream', '1 cup milk']);
+Posts.create(
+  'boiled white rice');
 
 // when the root of this router is called with GET, return
-// all current ShoppingList items
-app.get('/shopping-list', (req, res) => {
+// all current Blog posts  
+app.get('/blog-posts', (req, res) => {
   res.json(ShoppingList.get());
 });
 
-app.post('/shopping-list', jsonParser, (req, res) => {
+app.post('/blog-posts', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
   const requiredFields = ['name', 'budget'];
   for (let i=0; i<requiredFields.length; i++) {
@@ -43,7 +35,7 @@ app.post('/shopping-list', jsonParser, (req, res) => {
     }
   }
 
-  const item = ShoppingList.create(req.body.name, req.body.budget);
+  const item = BlogPosts.create(req.body.name, req.body.budget);
   res.status(201).json(item);
 });
 
@@ -52,7 +44,7 @@ app.post('/shopping-list', jsonParser, (req, res) => {
 // item id in updated item object match. if problems with any
 // of that, log error and send back status code 400. otherwise
 // call `ShoppingList.update` with updated item.
-app.put('/shopping-list/:id', jsonParser, (req, res) => {
+app.put('/blog-posts/:id', jsonParser, (req, res) => {
   const requiredFields = ['name', 'budget', 'id'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
@@ -79,20 +71,20 @@ app.put('/shopping-list/:id', jsonParser, (req, res) => {
 
 // when DELETE request comes in with an id in path,
 // try to delete that item from ShoppingList.
-app.delete('/shopping-list/:id', (req, res) => {
-  ShoppingList.delete(req.params.id);
+app.delete('/blog-posts/:id', (req, res) => {
+  BlogPost.delete(req.params.id);
   console.log(`Deleted shopping list item \`${req.params.ID}\``);
   res.status(204).end();
 });
 
 
-app.get('/recipes', (req, res) => {
-  res.json(Recipes.get());
+app.get('/blog-posts', (req, res) => {
+  res.json(BlogPosts.get());
 });
 
-app.post('/recipes', jsonParser, (req, res) => {
+app.post('/blog-posts', jsonParser, (req, res) => {
   // ensure `name` and `budget` are in request body
-  const requiredFields = ['name', 'ingredients'];
+  const requiredFields = ['title', 'content'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -101,12 +93,12 @@ app.post('/recipes', jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
-  const item = Recipes.create(req.body.name, req.body.ingredients);
+  const item = BlogPosts.create(req.body.title, req.body.content);
   res.status(201).json(item);
 });
 
-app.put('/recipes/:id', jsonParser, (req, res) => {
-  const requiredFields = ['name', 'ingredients', 'id'];
+app.put('/blog-posts/:id', jsonParser, (req, res) => {
+  const requiredFields = ['title', 'content'];
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -130,9 +122,9 @@ app.put('/recipes/:id', jsonParser, (req, res) => {
   res.status(204).end();
 });
 
-app.delete('/recipes/:id', (req, res) => {
-  Recipes.delete(req.params.id);
-  console.log(`Deleted recipe \`${req.params.ID}\``);
+app.delete('/blog-posts/:id', (req, res) => {
+  BlogPosts.delete(req.params.id);
+  console.log(`Deleted blog post \`${req.params.ID}\``);
   res.status(204).end();
 });
 
