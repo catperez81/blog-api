@@ -4,7 +4,7 @@ const router = express.Router();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
-const {BlogPost} = require('./models');
+const {BlogPosts} = require('./models');
 
 const jsonParser = bodyParser.json();
 const app = express();
@@ -13,7 +13,8 @@ const app = express();
 app.use(morgan('common'));
 
 // adding some blog posts to `BlogPosts` so there's something to retrieve.
-BlogPost.create('blog title here', 'actual blog post gets written here');
+BlogPosts.create('blog title here', 'actual blog post gets written here');
+
 
 // when the root of this router is called with GET, return all current Blog posts  
 app.get('/blog-posts', (req, res) => {
