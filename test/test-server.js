@@ -46,7 +46,6 @@ describe('BlogPosts', function() {
         const expectedKeys = ['id', 'title', 'content', 'author', 'publishDate'];
         res.body.forEach(function(item) {
           expect(item).to.be.a('object');
-          console.log(item);
           expect(item).to.include.keys(expectedKeys);
         });
       });
