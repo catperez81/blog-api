@@ -2,14 +2,16 @@
   "name": "blog-api",
   "version": "1.0.0",
   "description": "blog-api server project",
-  "main": "servers.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node servers.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "mocha --exit"
   },
   "author": "cat perez",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {

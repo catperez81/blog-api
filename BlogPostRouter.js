@@ -5,7 +5,7 @@ const jsonParser = bodyParser.json();
 const {BlogPosts} = require('./models');
 
 // adding some blog posts to `BlogPosts` so there's something to retrieve.
-BlogPosts.create('blog title here', 'actual blog post gets written here');
+BlogPosts.create('blog title here', 'actual blog post gets written here', 'Cat Perez');
 
 // return all current Blog posts  
 router.get('/', (req, res) => {
